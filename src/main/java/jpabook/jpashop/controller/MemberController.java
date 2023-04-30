@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
@@ -36,5 +38,12 @@ public class MemberController {
 
         memberService.join(member); // 호출 시 저장
         return "redirect:/"; //저장이 끝나면 어디로 갈래? - 저장된 후에는 재저장이 되면 안좋기 때문에 redirect를 form으로 보낸다
+    }
+
+    @GetMapping("/members")
+    public String list(Model model){ //Model이라는 객체를 통해서 화면을 전달한다.
+        List<Member> members = memberService.findMembers(); //findMembers jpql로 모든 정보가 담겨서 model로 넘어간다.
+        model.addAttribute("members",members); //"members"는 키고 members가 꺼내지게 된다.
+        return "members/memberList";
     }
 }
