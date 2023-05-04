@@ -15,5 +15,4 @@ public class BookForm {
     //책의 특수한 속성
     private String author;
     private String isbn;
-
 }
