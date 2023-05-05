@@ -61,17 +61,20 @@ public class ItemController {
     }
 
     @PostMapping("/items/{itemId}/edit")
-    public String updateItem(@PathVariable String itemId, @ModelAttribute("form") BookForm form) { //@ModelAttribute form을하면 html에서 지정했던 form이 그대로 넘어온다.
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form) { //@ModelAttribute form을하면 html에서 지정했던 form이 그대로 넘어온다.
+//들어간 값을 내가 new로 값을 새로 정의해주게 되면 준영속성 컨텍스트이기 때문에 JPA를 실행하면 flush가 변경감지를 하지 못한다.
+//이때 변경을 감지 시키기 위해서는 (1. 변경 감지 기능 사용 2. merge 사용) 두 가지 방법이 있다.
 
-        Book book = new Book();
-        book.setId(form.getId());
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
+//        Book book = new Book();
+//        book.setId(form.getId());
+//        book.setName(form.getName());
+//        book.setPrice(form.getPrice());
+//        book.setStockQuantity(form.getStockQuantity());
+//        book.setAuthor(form.getAuthor());
+//        book.setIsbn(form.getIsbn());
 
-        itemService.saveItem(book);
+        itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
+        //모든 데이터를 가져오는 거 보다는 필요한 데이터만 가져오는게 유지보수 성이 좋다.
         return "redirect:/items";
 
 
