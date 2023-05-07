@@ -1,7 +1,9 @@
 package jpabook.jpashop.controller;
 
 import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.item.Item;
+import jpabook.jpashop.repository.OrderSearch;
 import jpabook.jpashop.service.ItemService;
 import jpabook.jpashop.service.MemberService;
 import jpabook.jpashop.service.OrderService;
@@ -9,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -41,5 +44,13 @@ public class OrderController {
 
         return "redirect:/orders";
 
+    }
+
+    @GetMapping("/orders")
+    public String orderList (@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model){
+        List<Order> orders = orderService.findOrders(orderSearch); /*단순히 조회만 하는 로직의 경우에는
+        Service에서 바로 Controller로 가도록 설계해도 괜찮다.*/
+        model.addAttribute("orders", orders);
+        return "order/orderList";
     }
 }
