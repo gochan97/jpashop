@@ -37,11 +37,10 @@ public class OrderController {
 
     @PostMapping("/order")
     public String order(@RequestParam("memberId") Long memberId,
-                        @RequestParam("items") Long itemId,
+                        @RequestParam("itemId") Long itemId,
                         @RequestParam("count") int count){
         orderService.order(memberId,itemId,count); //핵심 비지니스 로직은 위에처럼 식별자만 남겨주고 OrderService 로직에서
         //처리하는게 더 깔끔하고 수정 시에도 영속 상태를 유지할 수 있다.
-
         return "redirect:/orders";
 
     }
@@ -51,6 +50,10 @@ public class OrderController {
         List<Order> orders = orderService.findOrders(orderSearch); /*단순히 조회만 하는 로직의 경우에는
         Service에서 바로 Controller로 가도록 설계해도 괜찮다.*/
         model.addAttribute("orders", orders);
+
+
         return "order/orderList";
+
+
     }
 }

@@ -44,8 +44,8 @@ public class Order {
         member.getOrders().add(this);
     }
 
-    public void addOrderItem (OrderItem orderItem){
-        orderItems.add(orderItem);
+    public void addOrderItem(OrderItem orderItem) { orderItems.add(orderItem);
+        orderItem.setOrder(this);
     }
 
     public void setDelivery(Delivery delivery){
@@ -54,7 +54,7 @@ public class Order {
     }
 
     //==생성 메서드==//
-    public static Order creatOrder(Member member, Delivery delivery, OrderItem... orderItems){
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems){
         Order order = new Order();
         order.setMember(member);
         order.setDelivery(delivery);
