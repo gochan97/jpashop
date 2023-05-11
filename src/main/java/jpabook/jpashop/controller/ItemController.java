@@ -1,5 +1,6 @@
 package jpabook.jpashop.controller;
 
+import jpabook.jpashop.domain.item.Album;
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.service.ItemService;
@@ -18,13 +19,33 @@ import java.util.List;
 public class ItemController {
     private final ItemService itemService;
 
-    @GetMapping("/items/new")
+
+    @GetMapping("/items/album")
+    public String createAlbum(Model model){
+        model.addAttribute("form", new AlbumForm());
+        return "items/createAlbum";
+    }
+
+    @PostMapping("/items/album")
+    public String create(AlbumForm form){
+        Album album = new Album();
+        album.setName(form.getName());
+        album.setPrice(form.getPrice());
+        album.setStockQuantity(form.getStockQuantity());
+        album.setArtist(form.getArtist());
+        album.setEtc(form.getEtc());
+        itemService.saveItem(album);
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/items/book")
     public String createForm(Model model){
         model.addAttribute("form", new BookForm()); //html 파일에서 form을 클릭하면 추적할 수 있는 이유는 BookForm()으로 껍데기를 만들어줘서 가능하다
         return "items/createItemForm";
     }
 
-    @PostMapping("/items/new")
+    @PostMapping("/items/book")
     public String create(BookForm form){
         Book book = new Book();
         book.setName(form.getName());
@@ -49,12 +70,14 @@ public class ItemController {
         Book item = (Book) itemService.findOne(itemId);
 
         BookForm form = new BookForm();
+
         form.setId(item.getId());
         form.setName(item.getName());
         form.setPrice(item.getPrice());
         form.setStockQuantity(item.getStockQuantity());
         form.setAuthor(item.getAuthor());
         form.setIsbn(item.getIsbn());
+
 
         model.addAttribute("form", form); //form을 통해서 데이터가 넘어간다.
         return "items/updateItemForm";
