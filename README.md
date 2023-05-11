@@ -19,7 +19,7 @@
 ![도메인 모델 설계](https://github.com/gochan97/jpashop/assets/87771682/e7264249-d798-403b-959b-30eef35c2bda)
 
 ### **회원 엔티티 분석**
-![엔티티 분석](https://github.com/gochan97/jpashop/assets/87771682/2abd6f45-5b60-4a08-8dd1-ee28eaecaf7b)
+![엔티티 분석](https://github.com/gochan97/Pattern/assets/87771682/a97b251c-bae6-40d0-8817-5ca6db496d24)
 
 ### **회원 테이블 분석**
 ![회원 테이블](https://github.com/gochan97/jpashop/assets/87771682/05184357-8d1b-431f-b22c-d04bf31f00cd)
